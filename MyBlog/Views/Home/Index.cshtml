@@ -1,0 +1,54 @@
+﻿@model IEnumerable<MyBlog.Models.BlogPost>
+@{
+	ViewData["Title"] = "Home Page";
+}
+
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('/assets/img/home-bg.jpg')">
+	<div class="container position-relative px-4 px-lg-5">
+		<div class="row gx-4 gx-lg-5 justify-content-center">
+			<div class="col-md-10 col-lg-8 col-xl-7">
+				<div class="site-heading">
+					<h1>MyBlog</h1>
+					<span class="subheading">A Blog Theme by MyBlog</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+<!-- Main Content-->
+<div class="container px-4 px-lg-5">
+	<div class="row row-cols-1 row-cols-md-2 g-4">
+		@foreach (var item in Model)
+		{
+			<!-- Post preview-->
+			<div class="col">
+				<div class="card mb-3" style="max-width: 35rem; max-height: 17rem;">
+					<div class="row g-0">
+						<div class="col-md-4 shadow">
+							<img src="@Url.Content("~/assets/img/" + item.FeaturedImagePath)" class="img-fluid rounded-start" style="width: 100%; height: 17rem; object-fit: cover;" alt="@item.Title">
+						</div>
+						<div class="col-md-8">
+							<div class="card-body">
+								<a asp-action="Post" asp-route-id="@item.Id">
+									<h3 class="card-title">@item.Title</h3>
+									<h4 class="card-subtitle">@item.Subtitle</h4>
+								</a>
+								<p class="card-text">
+									<small class="text-body-secondary">
+										Posted by @item.Author.Name
+										on @item.CreateTime.ToString("dd/MM/yyyy")
+									</small>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr class="my-4" />
+			</div>
+		}
+	</div>
+	<!-- Pager-->
+	<div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" asp-controller="Home" asp-action="OlderPosts">Older Posts →</a></div>
+</div>
+
